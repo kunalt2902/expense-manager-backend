@@ -162,6 +162,22 @@ const Mutation = new GraphQLObjectType({
           { new: true }
         );
       }
+    },
+    deleteReportFromFileDetails: {
+      type: FileDetailsType,
+      args: { _id: { type: GraphQLString } },
+      resolve(parent, args) {
+        //delete from fileDetails
+        return FileDetails.findOneAndDelete({ _id: args._id });
+      }
+    },
+    deleteReportFromExpenseReport: {
+      type: ExpenseReportType,
+      args: { id: { type: GraphQLString } },
+      resolve(parent, args) {
+        //deleteing all the references from ExpenseReport
+        return ExpenseReport.deleteMany({ reportID: args.id });
+      }
     }
   })
 });
